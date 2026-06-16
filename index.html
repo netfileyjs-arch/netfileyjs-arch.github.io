@@ -3,245 +3,405 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>넷파일 무료회원가입 | p2p사이트 스타일</title>
+  <title>넷파일 무료회원가입 | 콘텐츠 검색 & 다운로드</title>
   <style>
     :root {
       color-scheme: light;
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 16px;
-      color: #222;
-      background: #f4f7fb;
+      color: #111827;
+      background: #f4f6fb;
     }
     * {
       box-sizing: border-box;
     }
     body {
       margin: 0;
+      min-height: 100vh;
       line-height: 1.6;
+      background: #eef3fb;
+    }
+    img {
+      display: block;
+      max-width: 100%;
     }
     a {
       color: inherit;
       text-decoration: none;
     }
-
     .page {
-      max-width: 1180px;
+      width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 0 20px 40px;
+      padding: 20px 0 60px;
     }
-    .hero {
-      background: linear-gradient(135deg, #212f5c 0%, #2b4368 100%);
-      color: white;
-      padding: 60px 24px 50px;
-      border-radius: 24px;
-      margin: 24px 0;
-      overflow: hidden;
+    .section-title {
+      margin: 56px 0 18px;
+      font-size: clamp(1.8rem, 1.9vw, 2.3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #111827;
     }
-    .hero-content {
-      max-width: 760px;
+    .section-subtitle {
+      margin: 10px 0 0;
+      color: #4b5563;
+      font-size: 1rem;
+      max-width: 720px;
+      line-height: 1.8;
     }
-    .hero h1 {
-      margin: 0 0 18px;
-      font-size: clamp(2.5rem, 4vw, 4.2rem);
-      line-height: 1.02;
-      letter-spacing: -0.04em;
-    }
-    .hero p {
-      margin: 0 0 28px;
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.88);
-      max-width: 680px;
-    }
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+    .button,
     .button-primary,
     .button-secondary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: none;
       border-radius: 999px;
-      padding: 14px 28px;
-      font-weight: 600;
+      padding: 14px 24px;
+      font-weight: 700;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     }
     .button-primary {
-      background: #ff8c00;
-      color: #111;
+      background: #2d4dff;
+      color: #fff;
+      border: 1px solid transparent;
     }
     .button-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 18px 36px rgba(255, 140, 0, 0.22);
+      box-shadow: 0 16px 32px rgba(45, 77, 255, 0.22);
     }
     .button-secondary {
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(47, 56, 79, 0.08);
+      color: #1f2937;
+      border: 1px solid rgba(148, 163, 184, 0.3);
     }
-    .hero-meta {
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      margin: 32px 0;
+      padding: 40px;
+      background: linear-gradient(180deg, rgba(16, 24, 40, 0.96) 0%, rgba(23, 35, 61, 0.92) 100%);
+      color: #fff;
+      box-shadow: 0 32px 80px rgba(15, 23, 42, 0.14);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      opacity: 0.22;
+      filter: grayscale(0.2);
+      z-index: 0;
+    }
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 28px;
+      align-items: center;
+      z-index: 1;
+    }
+    .hero-copy {
+      max-width: 720px;
+    }
+    .hero-copy small {
+      display: inline-flex;
+      margin-bottom: 18px;
+      color: #a5b4fc;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.82rem;
+    }
+    .hero-copy h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 4vw, 4.6rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+    }
+    .hero-copy p {
+      margin: 24px 0 0;
+      color: rgba(255,255,255,0.84);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 640px;
+    }
+    .hero-copy ul {
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+    .hero-copy li {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      color: #e5e7eb;
+    }
+    .hero-copy li::before {
+      content: "✓";
+      color: #60a5fa;
+      font-weight: 800;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+    .hero-visual {
+      display: grid;
+      gap: 18px;
+      align-items: start;
+    }
+    .visual-card {
+      border-radius: 28px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 18px 48px rgba(15, 23, 42, 0.16);
+    }
+    .visual-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .visual-card .visual-label {
+      padding: 16px;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      background: rgba(15, 23, 42, 0.4);
+    }
+    .hero-stats {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
-      margin-top: 42px;
+      margin-top: 30px;
     }
-    .hero-card {
+    .stat-card {
+      border-radius: 22px;
+      padding: 18px 20px;
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-      padding: 18px 20px;
     }
-    .hero-card strong {
+    .stat-card strong {
       display: block;
-      font-size: 0.98rem;
-      margin-bottom: 8px;
-      color: #fff;
-    }
-    .hero-card span {
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.76);
-    }
-
-    .section-title {
-      margin: 40px 0 18px;
-      font-size: 1.6rem;
-      font-weight: 700;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-    .card {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 15px 45px rgba(20, 34, 61, 0.06);
-      overflow: hidden;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 25px 60px rgba(20, 34, 61, 0.1);
-    }
-    .card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 20px;
-      gap: 12px;
-    }
-    .rank {
-      background: #1f3b7a;
-      color: #fff;
-      width: 42px;
-      height: 42px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      border-radius: 14px;
-      flex-shrink: 0;
-    }
-    .card-title {
-      margin: 0;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #111;
-    }
-    .card-body {
-      padding: 0 20px 20px;
-    }
-    .card-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 10px;
-      margin-top: 14px;
-      align-items: center;
-    }
-    .card-row span {
-      color: #555;
-      font-size: 0.96rem;
-      line-height: 1.5;
-    }
-    .card-logo {
-      width: 72px;
-      aspect-ratio: 1 / 1;
-      border-radius: 16px;
-      object-fit: cover;
-      background: #eef2f6;
-      border: 1px solid #e4e8ef;
-    }
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid #f1f3f7;
-    }
-    .badge {
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      color: #fff;
-      background: #4f83ff;
-    }
-    .card-button {
-      background: #111f42;
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-      white-space: nowrap;
-    }
-    .faq {
-      display: grid;
-      gap: 18px;
-      margin-top: 24px;
-      padding: 24px;
-      background: #ffffff;
-      border-radius: 20px;
-      box-shadow: 0 18px 40px rgba(20,34,61,0.05);
-    }
-    .faq-item {
-      border-bottom: 1px solid #eef1f6;
-      padding-bottom: 18px;
-    }
-    .faq-item:last-child {
-      border-bottom: none;
-    }
-    .faq-item h3 {
-      margin: 0 0 10px;
       font-size: 1rem;
-      color: #121f38;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
     }
-    .faq-item p {
-      margin: 0;
-      color: #53637d;
+    .stat-card span {
+      color: rgba(255,255,255,0.78);
       font-size: 0.96rem;
       line-height: 1.7;
     }
-    .footer {
-      margin-top: 38px;
-      padding: 22px 0 10px;
-      color: #6b7280;
-      font-size: 0.95rem;
-      text-align: center;
+    .content {
+      margin-top: 6px;
+      color: rgba(255,255,255,0.72);
     }
-    @media (max-width: 720px) {
-      .hero-meta {
+    .section {
+      background: #fff;
+      border-radius: 28px;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+      padding: 40px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .feature-item {
+      border-radius: 24px;
+      padding: 24px;
+      background: #f8fbff;
+      border: 1px solid #e5e7eb;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .feature-item h3 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      color: #111827;
+    }
+    .feature-item p {
+      margin: 0;
+      color: #475569;
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+    .feature-item .feature-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 1.35rem;
+      margin-bottom: 16px;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .step-card {
+      padding: 28px 24px;
+      border-radius: 26px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      text-align: center;
+      min-height: 220px;
+    }
+    .step-number {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #2f4dff;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .step-card h3 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      color: #0f172a;
+    }
+    .step-card p {
+      margin: 0;
+      color: #475569;
+      line-height: 1.75;
+    }
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 30px;
+    }
+    .preview-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+    }
+    .preview-card h3 {
+      margin: 0;
+      padding: 24px;
+      font-size: 1.1rem;
+      color: #111827;
+    }
+    .preview-card img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      height: 360px;
+    }
+    .event-banner {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .event-card {
+      border-radius: 26px;
+      padding: 26px;
+      background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1px solid #dbeafe;
+      min-height: 170px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .event-card h3 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      color: #1e3a8a;
+    }
+    .event-card p {
+      margin: 0;
+      color: #334155;
+      line-height: 1.75;
+    }
+    .cta {
+      margin-top: 42px;
+      padding: 40px;
+      border-radius: 32px;
+      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 28px 60px rgba(37, 99, 235, 0.24);
+    }
+    .cta-copy {
+      max-width: 720px;
+    }
+    .cta-copy p {
+      margin: 14px 0 0;
+      color: rgba(255,255,255,0.9);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .highlight-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+      padding: 16px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .mini-banner {
+      margin-top: 14px;
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(255,255,255,0.12);
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.95rem;
+    }
+    @media (max-width: 960px) {
+      .hero-grid,
+      .preview-grid,
+      .event-banner,
+      .steps,
+      .features {
         grid-template-columns: 1fr;
       }
-      .card-row {
-        grid-template-columns: 1fr;
+      .cta {
+        flex-direction: column;
+        align-items: flex-start;
       }
-      .card-logo {
-        width: 100%;
-        aspect-ratio: auto 1 / 1;
+    }
+    @media (max-width: 680px) {
+      .hero {
+        padding: 28px 18px;
+      }
+      .hero-copy h1 {
+        font-size: clamp(2.3rem, 8vw, 3rem);
+      }
+      .hero-actions {
+        flex-direction: column;
       }
     }
   </style>
@@ -249,115 +409,148 @@
 <body>
   <main class="page">
     <section class="hero">
-      <div class="hero-content">
-        <p style="margin:0 0 14px; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.14em; color: rgba(255,255,255,0.82);">2026년 최신 p2p사이트 스타일 배너</p>
-        <h1>넷파일 무료회원가입 안내</h1>
-        <p>p2psite처럼 깔끔하고 신뢰감 있는 웹페이지 스타일로 구성했습니다. 상단 버튼을 누르면 넷파일 무료 회원가입 페이지로 이동합니다.</p>
-        <div class="hero-buttons">
-          <a class="button-primary" href="https://www.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49">넷파일 무료회원가입하기</a>
-          <a class="button-secondary" href="https://netfileyjs-arch.github.io/">사이트 바로가기</a>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <small>국내 최대 규모 콘텐츠 플랫폼</small>
+          <h1>영화 · 드라마 · 애니 · 예능<br>한 번에 검색하고 바로 다운로드</h1>
+          <p>넷파일은 최신 콘텐츠를 빠르게 찾고, PC와 모바일에서 모두 이용 가능한 편리한 다운로드 환경을 제공합니다.</p>
+          <ul>
+            <li>국내 최대 규모 콘텐츠 플랫폼</li>
+            <li>영화 · 드라마 · 애니 · 예능을 한 번에 검색</li>
+            <li>신규회원 2,000코인 즉시 지급</li>
+          </ul>
+          <div class="hero-actions">
+            <a class="button-primary" href="https://www.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49">무료 회원가입</a>
+            <a class="button-secondary" href="#preview">콘텐츠 검색하기</a>
+          </div>
+          <div class="hero-meta">
+            <div class="stat-card">
+              <strong>신규회원 혜택</strong>
+              <span class="content">가입 즉시 2,000코인 즉시 지급.</span>
+            </div>
+            <div class="stat-card">
+              <strong>검색 한 번에</strong>
+              <span class="content">영화, 드라마, 애니, 예능을 모두 검색.</span>
+            </div>
+            <div class="stat-card">
+              <strong>눈에 띄는 속도</strong>
+              <span class="content">빠른 다운로드로 기다림을 줄여드립니다.</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="hero-meta">
-        <div class="hero-card">
-          <strong>추천 순위</strong>
-          <span>넷파일은 안정적인 가입 경로를 제공합니다.</span>
-        </div>
-        <div class="hero-card">
-          <strong>혜택 정보</strong>
-          <span>회원가입 시 다양한 혜택과 보너스를 받을 수 있습니다.</span>
-        </div>
-        <div class="hero-card">
-          <strong>간편 이동</strong>
-          <span>한 번의 클릭으로 바로 회원가입 창으로 이동합니다.</span>
+
+        <div class="hero-visual">
+          <div class="visual-card">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="여성 노트북 실사">
+            <div class="visual-label">실사 여성 + 노트북</div>
+          </div>
+          <div class="visual-card">
+            <img src="https://images.unsplash.com/photo-1517604982640-0f78d69b9d27?auto=format&fit=crop&w=900&q=80" alt="영화 애니 포스터 컬리지">
+            <div class="visual-label">영화 / 애니 포스터 콜라주</div>
+          </div>
+          <div class="visual-card">
+            <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=900&q=80" alt="다운로드 속도 그래픽">
+            <div class="visual-label">다운로드 속도 그래픽</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <h2 class="section-title">추천 사이트 목록</h2>
-    <div class="cards">
-      <article class="card">
-        <div class="card-top">
-          <span class="rank">1</span>
-          <h3 class="card-title">넷파일</h3>
+    <section class="section">
+      <h2 class="section-title">왜 넷파일인가?</h2>
+      <p class="section-subtitle">빠른 검색, 풍부한 콘텐츠, 회원 리워드까지. 넷파일이 선택받는 이유를 한눈에 확인하세요.</p>
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-icon">🎬</div>
+          <h3>콘텐츠</h3>
+          <p>다양한 최신 영화, 드라마, 애니, 예능 콘텐츠를 한 곳에서 찾아볼 수 있습니다.</p>
         </div>
-        <div class="card-body">
-          <div class="card-row">
-            <img class="card-logo" src="https://via.placeholder.com/120" alt="넷파일 로고">
-            <span>무료회원가입으로 빠르게 이용하고, 다양한 프리미엄 혜택도 확인해보세요.</span>
-          </div>
-          <div class="card-footer">
-            <span class="badge">50,000 MB 혜택</span>
-            <a class="card-button" href="https://www.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49">가입하기</a>
-          </div>
+        <div class="feature-item">
+          <div class="feature-icon">⚡</div>
+          <h3>속도</h3>
+          <p>빠르고 안정적인 다운로드 제공으로 기다리는 시간을 최소화합니다.</p>
         </div>
-      </article>
-      <article class="card">
-        <div class="card-top">
-          <span class="rank">2</span>
-          <h3 class="card-title">스마트파일</h3>
+        <div class="feature-item">
+          <div class="feature-icon">💾</div>
+          <h3>저장공간</h3>
+          <p>충분한 저장공간을 제공하여 큰 파일도 문제없이 관리할 수 있습니다.</p>
         </div>
-        <div class="card-body">
-          <div class="card-row">
-            <img class="card-logo" src="https://via.placeholder.com/120" alt="스마트파일 로고">
-            <span>파일 업로드와 다운로드가 편리한 대표 웹하드 서비스입니다.</span>
-          </div>
-          <div class="card-footer">
-            <span class="badge">1,000P 지급</span>
-            <a class="card-button" href="https://www.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49">자세히 보기</a>
-          </div>
+        <div class="feature-item">
+          <div class="feature-icon">🎁</div>
+          <h3>리워드</h3>
+          <p>회원 리워드 혜택과 코인 지급으로 더욱 합리적인 이용이 가능합니다.</p>
         </div>
-      </article>
-      <article class="card">
-        <div class="card-top">
-          <span class="rank">3</span>
-          <h3 class="card-title">꿀파일</h3>
-        </div>
-        <div class="card-body">
-          <div class="card-row">
-            <img class="card-logo" src="https://via.placeholder.com/120" alt="꿀파일 로고">
-            <span>초보자도 쉽게 사용할 수 있는 간편한 파일 공유 환경입니다.</span>
-          </div>
-          <div class="card-footer">
-            <span class="badge">신규가입 보너스</span>
-            <a class="card-button" href="https://www.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49">자세히 보기</a>
-          </div>
-        </div>
-      </article>
-      <article class="card">
-        <div class="card-top">
-          <span class="rank">4</span>
-          <h3 class="card-title">지니파일</h3>
-        </div>
-        <div class="card-body">
-          <div class="card-row">
-            <img class="card-logo" src="https://via.placeholder.com/120" alt="지니파일 로고">
-            <span>빠른 다운로드와 안정적인 서비스로 유명한 p2p 사이트입니다.</span>
-          </div>
-          <div class="card-footer">
-            <span class="badge">24년 최신 오픈</span>
-            <a class="card-button" href="https://www.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49">자세히 보기</a>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <section class="faq">
-      <div class="faq-item">
-        <h3>넷파일 회원가입은 안전한가요?</h3>
-        <p>넷파일은 안정적인 회원가입 절차를 제공하며, 본 페이지의 버튼을 통해 공식 경로로 이동할 수 있습니다.</p>
-      </div>
-      <div class="faq-item">
-        <h3>회원가입 후 어떤 혜택이 있나요?</h3>
-        <p>가입 즉시 무료 혜택과 포인트 보너스를 받을 수 있으며, 다양한 추가 이벤트도 확인 가능합니다.</p>
-      </div>
-      <div class="faq-item">
-        <h3>p2psite 스타일의 페이지는 어떻게 동작하나요?</h3>
-        <p>이 페이지는 p2psite 디자인을 참고하여 구성된 예시 페이지이며, 버튼 클릭 시 넷파일 가입 페이지로 이동합니다.</p>
       </div>
     </section>
 
-    <div class="footer">© 2026 netfileyjs-arch. 이 페이지는 추천 정보 제공용 예시 페이지입니다.</div>
+    <section class="section">
+      <h2 class="section-title">사용 방법</h2>
+      <p class="section-subtitle">3단계로 간편하게 넷파일을 시작하고, 원하는 콘텐츠를 바로 다운로드하세요.</p>
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>회원가입</h3>
+          <p>간단한 정보 입력만으로 넷파일 무료 회원가입을 완료합니다.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>2,000코인 지급</h3>
+          <p>가입 즉시 2,000코인이 자동으로 지급되어 바로 사용할 수 있습니다.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>원하는 자료 다운로드</h3>
+          <p>검색창에서 콘텐츠를 찾고, 원하는 파일을 바로 다운로드하세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="preview">
+      <h2 class="section-title">실제 화면 미리보기</h2>
+      <p class="section-subtitle">PC와 모바일에서 넷파일 콘텐츠 탐색 및 다운로드 화면을 미리 확인해보세요.</p>
+      <div class="preview-grid">
+        <div class="preview-card">
+          <h3>PC 화면</h3>
+          <img src="https://via.placeholder.com/760x360?text=검색창+콘텐츠+리스트+다운로드+버튼" alt="PC 미리보기">
+        </div>
+        <div class="preview-card">
+          <h3>모바일 화면</h3>
+          <img src="https://via.placeholder.com/760x360?text=Lite+앱+화면" alt="모바일 미리보기">
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">현재 운영중인 이벤트</h2>
+      <p class="section-subtitle">지금 이용 가능한 최신 이벤트를 놓치지 마세요.</p>
+      <div class="event-banner">
+        <div class="event-card">
+          <h3>1만원 충전 시 추가 적립</h3>
+          <p>충전 금액에 따라 추가 코인 혜택을 제공합니다. 더 많이 충전할수록 보너스가 커집니다.</p>
+        </div>
+        <div class="event-card">
+          <h3>제휴컨텐츠 구매 시 리워드</h3>
+          <p>제휴 콘텐츠 결제 시 리워드가 함께 적립되어 더욱 합리적으로 이용할 수 있습니다.</p>
+        </div>
+        <div class="event-card">
+          <h3>홍보하고 코인 받기</h3>
+          <p>친구 초대나 공유를 통해 추가 코인을 받을 수 있는 프로모션을 운영합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-copy">
+        <h2>지금 가입하면<br>2,000코인 즉시 지급</h2>
+        <p>무료 회원가입으로 넷파일의 콘텐츠 검색, 다운로드, 리워드를 모두 경험해보세요.</p>
+      </div>
+      <div class="cta-actions">
+        <span class="highlight-box">2,000코인 즉시 지급</span>
+        <a class="button-primary" href="https://www.netfile.co.kr/index.jsp?referer_url=direct&keyid=jaesuni49">무료 회원가입</a>
+      </div>
+    </section>
+
+    <div class="footer">© 2026 netfileyjs-arch. 넷파일 무료회원가입 페이지입니다.</div>
   </main>
 </body>
 </html>
